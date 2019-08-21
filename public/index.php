@@ -16,6 +16,4 @@ var_dump($user);
 $good = new Good(new DB());
 var_dump($good);
 // var_dump($good->getOne(12));
-var_dump($good->getCount([1,4,2,13]));
-var_dump($good->calc([1,4,2,13]));
 

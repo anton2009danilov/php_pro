@@ -1,14 +1,11 @@
 <?php
 namespace App\models;
 
-class User extends Model
+class Cart extends Model
 {
-
     public function getTableName(): string
     {
-        return 'users';
+        return 'carts';
     }
-    
 }
-
 
