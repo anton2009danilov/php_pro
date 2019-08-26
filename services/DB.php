@@ -65,8 +65,14 @@ class DB implements IDB
     
     public function execute(string $sql, ?array $params = []):void
     {
+//         var_dump($sql);
+//         var_dump($params);
+//         exit;
         $this->query($sql, $params);
     }
     
+    public function getLastId() {
+        return $this->getConnect()->lastInsertId();
+    }
 }
 

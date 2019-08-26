@@ -13,13 +13,6 @@ class User extends Model
         return 'users';
     }
     
-    public function getProperties() {
-        foreach ($this as $property => $propertyValue) {
-            if ($property != "id")
-                echo "$property => $propertyValue <br>";
-        }
-    }
-    
 }
 
 
