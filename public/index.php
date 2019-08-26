@@ -13,7 +13,7 @@ $user->login = 'Ivan2059';
 $user->password = 'VaLeNki32841';
 
 var_dump($user->getOne(1));
-// var_dump($user->getAll());
+var_dump($user->getAll());
 
 // $user->insert();
 // $user->update(3);

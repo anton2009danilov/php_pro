@@ -55,12 +55,13 @@ class DB implements IDB
     
     public function find(string $sql, ?array $params = [])
     {
-        return $this->query($sql, $params)->fetch();
+//         return $this->query($sql, $params)->fetch();
+        return $this->query($sql, $params)->fetch(\PDO::FETCH_OBJ);
     }
     
     public function findAll(string $sql, ?array $params = [])
     {
-        return $this->query($sql, $params)->fetchAll();
+        return $this->query($sql, $params)->fetchAll(\PDO::FETCH_OBJ);
     }
     
     public function execute(string $sql, ?array $params = []):void
