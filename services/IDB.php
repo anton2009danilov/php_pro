@@ -7,15 +7,13 @@ interface IDB
      * 
      * @param string $sql
      */
-    public function find(string $sql);
+    public function find(string $sql, ?array $params = []);
     
     /**
      * 
      * @param string $sql
      */
-    public function findAll(string $sql);
+    public function findAll(string $sql, ?array $params = []);
     
-    public function query();
-
 }
 
