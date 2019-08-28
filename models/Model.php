@@ -82,33 +82,33 @@ abstract class Model
         $this->id = $this->db->lastInsertId();
     }
     
-//     private function update() {
+    private function update() {
         
-//         $columns = [];
-//         $params = [];
+        $columns = [];
+        $params = [];
         
-//         foreach ($this as $key => $value) {
-//             if ($key == 'db' ) {
-//                 continue;
-//             }
+        foreach ($this as $key => $value) {
+            if ($key == 'db' ) {
+                continue;
+            }
             
-//             $columns[] = $key;
-//             $params[":{$key}"] = $value;
-//         }
+            $columns[] = $key;
+            $params[":{$key}"] = $value;
+        }
         
-//         $values = [];
-//         $i = 0;
-//         foreach ($params as $key => $value) {
+        $values = [];
+        $i = 0;
+        foreach ($params as $key => $value) {
             
-//             if($key != ':id') {
-//                 if ($i < count($params)) {
-//                     $values[] = "`$columns[$i]` = $key";
-//                 }
-//             }
+            if($key != ':id') {
+                if ($i < count($params)) {
+                    $values[] = "`$columns[$i]` = $key";
+                }
+            }
 
-//             $i++;
+            $i++;
             
-//         }
+        }
         
         $placeholders = implode(', ', $values);
         $sql = "UPDATE `{$this->getTableName()}` SET ({$placeholders}) WHERE id = :id";

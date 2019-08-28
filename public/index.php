@@ -11,27 +11,28 @@ $actionName = $_GET['a'] ?: '';
 
 $controllerClass = 'App\\controllers\\' . ucfirst($controllerName) . 'Controller';
 
-// if (class_exists($controllerClass)) {
-//     /**
-//      * @var $controller \App\controllers\UserController
-//      */
-//     $controller = new $controllerClass;
-//     $controller->run($actionName);
+if (class_exists($controllerClass)) {
+    /**
+     * @var $controller \App\controllers\UserController
+     */
+    $controller = new $controllerClass;
+    $controller->run($actionName);
     
-// } else {
-//     echo '404 c';
-// }
+} else {
+    echo '404 c';
+}
 
+// $good = new Good();
+// $user1 = (new User)->getOne(1);
+// $user2 = new User;
 
+// $user2->fio = 'Петров М.Д.';
+// $user2->login = 'Danila4000';
+// $user2->password = 'ElKi';
 
-$user1 = new User;
+// $user1->save();
+// $user2->save();
 
-$user1->fio = 'Петров М.Д.';
-$user1->login = 'Danila4000';
-$user1->password = 'ElKi';
-
-// $user1->insert();
-$user1->save();
-
-var_dump($user1);
+// var_dump($user1);
+// var_dump($user2);
 
