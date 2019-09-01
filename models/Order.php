@@ -1,6 +1,13 @@
 <?php
 namespace App\models;
 
+/**
+ * Class Order
+ *@package App\models
+ *
+ *@method self getOne()
+ *@method self[] getAll()
+ */
 class Order extends Model
 {
     

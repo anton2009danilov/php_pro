@@ -1,6 +1,13 @@
 <?php
 namespace App\models;
 
+/**
+ * Class Cart
+ *@package App\models
+ *
+ *@method self getOne()
+ *@method self[] getAll()
+ */
 class Cart extends Model
 {
     public $id;

@@ -3,6 +3,13 @@ namespace App\services;
 
 use App\traits\TSingleton;
 
+/**
+ * Class DB
+ * @package App\services
+ * 
+ * @method static DB getInstance()
+ *
+ */
 class DB implements IDB
 {
     use TSingleton;
@@ -46,34 +53,49 @@ class DB implements IDB
     
     private function query(string $sql, ?array $params = [])
     {
+        /**
+         * 
+         * @var \PDOStatement $PDOStatement
+         */
         $PDOStatement = $this->getConnect()->prepare($sql);
         $PDOStatement->execute($params);
-//         var_dump($PDOStatement);
-//         exit;
         return $PDOStatement;
+    }
+    
+    public function queryObject(string $sql, string $class, array $params = [])
+    {
+        $PDOStatement = $this->query($sql, $params );
+        $PDOStatement->setFetchMode(\PDO::FETCH_CLASS, $class);
+        return $PDOStatement->fetch();
+        
+    }
+    
+    public function queryObjects(string $sql, string $class, array $params = [])
+    {
+        $PDOStatement = $this->query($sql, $params );
+        $PDOStatement->setFetchMode(\PDO::FETCH_CLASS, $class);
+        return $PDOStatement->fetchAll();
+        
     }
     
     public function find(string $sql, ?array $params = [])
     {
-//         return $this->query($sql, $params)->fetch();
-        return $this->query($sql, $params)->fetch(\PDO::FETCH_OBJ);
+        return $this->query($sql, $params)->fetch();
     }
     
     public function findAll(string $sql, ?array $params = [])
     {
-        return $this->query($sql, $params)->fetchAll(\PDO::FETCH_OBJ);
+        return $this->query($sql, $params)->fetchAll();
     }
     
     public function execute(string $sql, ?array $params = []):void
     {
-//         var_dump($sql);
-//         var_dump($params);
-//         exit;
         $this->query($sql, $params);
     }
     
-    public function getLastId() {
+    public function lastInsertId () {
         return $this->getConnect()->lastInsertId();
     }
+    
 }
 
