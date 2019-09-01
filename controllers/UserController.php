@@ -2,7 +2,7 @@
 namespace App\controllers;
 use App\models\User;
 
-class UserController extends Controller
+class UserController extends CRUD
 {
     public function getClass() {
         return new User();
@@ -12,6 +12,13 @@ class UserController extends Controller
         return 'users';
     }
     
+    public function getName() {
+        return 'user';
+    }
+    
+    public function getTitle() {
+        return 'Пользователи';
+    }
     
 }
 

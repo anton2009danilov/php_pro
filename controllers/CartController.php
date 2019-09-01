@@ -2,7 +2,7 @@
 namespace App\controllers;
 use App\models\Cart;
 
-class CartController extends Controller
+class CartController extends CRUD
 {
     public function getClass() {
         return new Cart();
@@ -10,6 +10,14 @@ class CartController extends Controller
     
     public function getView() {
         return 'carts';
+    }
+    
+    public function getName() {
+        return 'cart';
+    }
+    
+    public function getTitle() {
+        return 'Корзина';
     }
 }
 

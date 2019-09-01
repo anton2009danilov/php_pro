@@ -1,15 +1,25 @@
 <?php
 namespace App\controllers;
 
-abstract class Controller extends CRUD
+use App\services\renders\TmplRenderService;
+use App\services\renders\IRenderService;
+
+abstract class Controller
 {
     
-    private $defaultAction = 'all';
-    private $action;
+    protected  $defaultAction = 'all';
+    protected $action;
+    protected $renderer;
+    
     abstract public function getClass();
     abstract public function getView();
+    abstract public function getName();
+    abstract public function getTitle();
     
-    
+    public function __construct(IRenderService $renderer) {
+        $this->renderer = $renderer;
+    }
+        
     public function run($actionName) {
         $this->action = $actionName ?: $this->defaultAction;
         $method = $this->action . 'Action';
@@ -20,33 +30,19 @@ abstract class Controller extends CRUD
         }
     }
     
-    public function allAction() {
-        
-        $params = [
-            $this->getView() => $this->getClass()->getAll(),
-            'title' => 'Моя страница',
-            'value' => 'Данные из базы'
-        ];
-        
-        echo $this->render($this->getView(), $params);
-        //         echo $a;
-    }
-    
-    public function oneAction() {
-        var_dump($_POST);
-        var_dump($this->getClass()->getOne($_GET['id']));
-    }
-    
     public function render($template, $params = []){
+        $title = $this->getTitle();
         $content = $this->renderTmpl($template, $params);
-        return $this->renderTmpl('layouts/main', ['content' => $content]);
+//         var_dump($content);
+        return $this->renderTmpl('layouts/main', [
+            'Content' => $content,
+            'Title' => $title
+        ]);
     }
     
     public function renderTmpl($template, $params = []) {
-        ob_start();
-        extract($params);
-        include dirname(__DIR__) . '/views/' . $template . '.php';
-        return ob_get_clean();
+//         var_dump($template);
+        return $this->renderer->render($template, $params);
     }
 }
 

@@ -1,8 +1,24 @@
 <?php
 namespace App\controllers;
 
-abstract class CRUD
+abstract class CRUD extends Controller
 {
+    public function allAction() {
+        
+        $params = [
+            $this->getView() => $this->getClass()->getAll(),
+            'title' => $this->getTitle(),
+            'value' => 'Данные из базы'
+        ];
+        
+        echo $this->render($this->getView(), $params);
+    }
+    
+    public function oneAction() {
+        var_dump($_POST);
+        var_dump($this->getClass()->getOne($_GET['id']));
+    }
+    
     public function addAction() {
         $newObject= $this->getClass();
         $input = $_POST;
@@ -10,7 +26,8 @@ abstract class CRUD
             $newObject->$key = $value;
         }
         $newObject->save();
-        header("Location: /?c=good");
+        $name = $this->getName();
+        header("Location: /?c={$name}");
     }
     
     //     public function deleteAction() {
@@ -31,7 +48,8 @@ abstract class CRUD
             }
         }
         $updateObject->save();
-        header("Location: /?c=good");
+        $name = $this->getName();
+        header("Location: /?c={$name}");
     }
 }
 
