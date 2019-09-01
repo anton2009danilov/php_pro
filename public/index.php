@@ -21,18 +21,3 @@ if (class_exists($controllerClass)) {
 } else {
     echo '404 c';
 }
-
-// $good = new Good();
-// $user1 = (new User)->getOne(1);
-// $user2 = new User;
-
-// $user2->fio = 'Петров М.Д.';
-// $user2->login = 'Danila4000';
-// $user2->password = 'ElKi';
-
-// $user1->save();
-// $user2->save();
-
-// var_dump($user1);
-// var_dump($user2);
-

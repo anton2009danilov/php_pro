@@ -1,7 +1,7 @@
 <?php
 namespace App\controllers;
 
-abstract class Controller
+abstract class Controller extends CRUD
 {
     
     private $defaultAction = 'all';
@@ -18,36 +18,6 @@ abstract class Controller
         } else {
             echo '404 a';
         }
-    }
-    
-    public function addAction() {
-        $newObject= $this->getClass();
-        $input = $_POST;
-        foreach($input as $key => $value) {
-            $newObject->$key = $value;
-        }
-        $newObject->save();
-        header("Location: /?c=good");
-    }
-    
-//     public function deleteAction() {
-//         $newObject= $this->getClass();
-//         $id = $_GET['id'];
-//         $newObject->getOne($id)->delete();
-//         header("Location: /?c=good");
-//     }
-
-    public function updateAction() {
-        $updateObject= $this->getClass();
-//         $id = $_POST['id'];
-        $params = $_POST;
-        foreach ($params as $key => $value) {
-            if($value) {
-                $updateObject->$key = $value;
-            }
-        }
-        $updateObject->save();
-        header("Location: /?c=good");
     }
     
     public function allAction() {

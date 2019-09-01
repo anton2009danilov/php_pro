@@ -100,10 +100,8 @@ abstract class Model
         $i = 0;
         foreach ($params as $key => $value) {
             
-            if($key != ':id') {
-                if ($i < count($params)) {
+            if($key != ':id' && $i < count($params)) {
                     $values[] = "`$columns[$i]` = $key";
-                }
             }
 
             $i++;
@@ -111,9 +109,8 @@ abstract class Model
         }
         
         $placeholders = implode(', ', $values);
-        $sql = "UPDATE `{$this->getTableName()}` SET ({$placeholders}) WHERE id = :id";
+        $sql = "UPDATE `{$this->getTableName()}` SET {$placeholders} WHERE id = :id";
         $this->db->execute($sql, $params);
-        
     }
     
 }
