@@ -33,7 +33,6 @@ abstract class Controller
     public function render($template, $params = []){
         $title = $this->getTitle();
         $content = $this->renderTmpl($template, $params);
-//         var_dump($content);
         return $this->renderTmpl('layouts/main', [
             'Content' => $content,
             'Title' => $title
@@ -41,7 +40,6 @@ abstract class Controller
     }
     
     public function renderTmpl($template, $params = []) {
-//         var_dump($template);
         return $this->renderer->render($template, $params);
     }
 }
