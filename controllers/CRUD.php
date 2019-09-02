@@ -8,6 +8,7 @@ abstract class CRUD extends Controller
         $params = [
             $this->getView() => $this->getClass()->getAll(),
             'title' => $this->getTitle(),
+            'get' => $_GET['id'],
             'value' => 'Данные из базы'
         ];
         
