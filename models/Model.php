@@ -24,18 +24,6 @@ abstract class Model
         $this->db = DB::getInstance();
     }
     
-    
-    public function getProperties() {
-        $data = [];
-        foreach ($this as $property => $propertyValue) {
-            if ($property != "id" && $property != "db") {
-                $data["{$property}"] = $propertyValue;
-            }
-        }
-        
-        return $data;
-    }
-    
     public  function getOne($id)
     {
         $sql = "SELECT * FROM `{$this->getTableName()}` WHERE id = :id";
@@ -57,7 +45,6 @@ abstract class Model
         if (empty($this->getId())) {
             $this->insert();
         } else {
-//             var_dump($this);exit;
             $this->update($this->getId());
         }
     }
