@@ -6,7 +6,8 @@
 
      {% for good in goods %}
          <a href='?c=good&a=one&id={{ good.id }}'>{{ good.item_name }}</a>
-        [<a href='?c=good&id={{ good.id }}&update=true'>обновить данные о товаре</a>]<hr>
+        [<a href='?c=good&id={{ good.id }}&update=true'>обновить данные о товаре</a>]
+        [<a href='?c=good&a=delete&id={{ good.id }}'>удалить</a>]<hr>
     	{% if good.id == get%}
             <h3>Изменить данные о товаре</h3>
             <form method='post' action='?c=good&a=update&id={{ good.id }}'>
