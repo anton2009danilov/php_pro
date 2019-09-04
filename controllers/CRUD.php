@@ -24,19 +24,20 @@ abstract class CRUD extends Controller
         $newObject= $this->getClass();
         $input = $_POST;
         foreach($input as $key => $value) {
-            $newObject->$key = $value;
+            $setProperty = 'set' . ucfirst($key);
+            $newObject->$setProperty($value);
         }
         $newObject->save();
         $name = $this->getName();
         header("Location: /?c={$name}");
     }
     
-    //     public function deleteAction() {
-    //         $newObject= $this->getClass();
-    //         $id = $_GET['id'];
-    //         $newObject->getOne($id)->delete();
-    //         header("Location: /?c=good");
-    //     }
+        public function deleteAction() {
+            $newObject= $this->getClass();
+            $id = $_GET['id'];
+            $newObject->getOne($id)->delete();
+            header("Location: /?c=good");
+        }
     
     public function updateAction() {
         $id = $_GET['id'];
@@ -45,7 +46,9 @@ abstract class CRUD extends Controller
         $params = $_POST;
         foreach ($params as $key => $value) {
             if($value) {
-                $updateObject->$key = $value;
+//                 var_dump("set". ucfirst($key)); die;
+                $setProperty = "set". ucfirst($key);
+                $updateObject->$setProperty($value);
             }
         }
         $updateObject->save();
