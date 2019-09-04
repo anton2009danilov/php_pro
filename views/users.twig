@@ -1,3 +1,11 @@
- {% for user in users %}
-     <a href='?c=user&a=one&id={{ user.id }}'>{{ user.login }}</a><hr>
- {% endfor %}
+{% extends './layouts/main.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+	<h1>{{ title }}</h1>
+    {% for user in users %}
+        <a href='?c=user&a=one&id={{ user.id }}'>{{ user.login }}</a>
+        <hr>
+    {% endfor %}
+{% endblock %}

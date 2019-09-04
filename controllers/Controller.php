@@ -1,7 +1,6 @@
 <?php
 namespace App\controllers;
 
-use App\services\renders\TmplRenderService;
 use App\services\renders\IRenderService;
 
 abstract class Controller
@@ -31,15 +30,6 @@ abstract class Controller
     }
     
     public function render($template, $params = []){
-        $title = $this->getTitle();
-        $content = $this->renderTmpl($template, $params);
-        return $this->renderTmpl('layouts/main', [
-            'Content' => $content,
-            'Title' => $title
-        ]);
-    }
-    
-    public function renderTmpl($template, $params = []) {
         return $this->renderer->render($template, $params);
     }
 }
