@@ -1,15 +1,14 @@
 <?php
-namespace App\models;
+namespace App\repositories;
 
 use App\services\DB;
+use App\entities\Entity;
 
 /**
- * Class Model
- * @package App\models
- *
- * @property int $id
+ * Class Repository
+ * @package App\repositories
  */
-abstract class Model
+abstract class Repository
 {
     /**
      * 
@@ -18,57 +17,49 @@ abstract class Model
     private $db;
     
     abstract public function getTableName():string;
+    abstract public function getEntityClass():string;
     
     public function __construct()
     {
         $this->db = DB::getInstance();
     }
     
-    
-    public function getProperties() {
-        $data = [];
-        foreach ($this as $property => $propertyValue) {
-            if ($property != "id" && $property != "db") {
-                $data["{$property}"] = $propertyValue;
-            }
-        }
-        
-        return $data;
-    }
-    
+    /**
+     * @param $id
+     * @return null|Entity
+     */
     public  function getOne($id)
     {
         $sql = "SELECT * FROM `{$this->getTableName()}` WHERE id = :id";
-        return $this->db->queryObject($sql, get_called_class(),[':id' => $id]);
+        return $this->db->queryObject($sql, $this->getEntityClass(),[':id' => $id]);
     }
     
     public  function getAll()
     {   
         $sql = "SELECT * FROM `{$this->getTableName()}`";
-        return $this->db->queryObjects($sql, static::class);
+        return $this->db->queryObjects($sql, $this->getEntityClass());
     }
     
-    public function delete() {
+    public function delete(Entity $entity) {
         $sql = "DELETE FROM `{$this->getTableName()}` WHERE id = :id";
-        $this->db->execute($sql, [':id' => $this->getId()]);
+        $this->db->execute($sql, [':id' =>  $entity->getId()]);
     }
     
-    public function save() {
-        if (empty($this->getId())) {
-            $this->insert();
+    public function save($entity) {
+        if (empty($entity->getId())) {
+            $this->insert($entity);
         } else {
-            $this->update($this->getId());
+            $this->update($entity);
         }
     }
     
-    private function insert() {
+    private function insert($entity) {
         $columns = [];
         $params = [];
-        
-        foreach ($this->params as $key => $value) {
+        foreach ($entity->params as $key => $value) {
             $getProperty = "get" . ucfirst($value);
             $columns[] = $value;
-            $params[":{$value}"] = $this->$getProperty();
+            $params[":{$value}"] = $entity->$getProperty();
         }
         
         $columnsString = implode(', ', $columns);
@@ -76,19 +67,18 @@ abstract class Model
         
         $sql = "INSERT INTO `{$this->getTableName()}` ($columnsString) VALUES ($placeholders)";
         $this->db->execute($sql, $params);
-        $this->setId = $this->db->lastInsertId();
+        $entity->setId($this->db->lastInsertId());
     }
     
-    private function update() {
-        
+    private function update($entity) {
         $columns = [];
         $params = [];
 
-        foreach ($this->params as $key => $value) {
+        foreach ($entity->params as $key => $value) {
             
             $getProperty = "get" . ucfirst($value);
             $columns[] = $value;
-            $params[":{$value}"] = $this->$getProperty();
+            $params[":{$value}"] = $entity->$getProperty();
         }
         
         $values = [];

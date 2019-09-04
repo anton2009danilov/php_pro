@@ -6,7 +6,7 @@ abstract class CRUD extends Controller
     public function allAction() {
         
         $params = [
-            $this->getView() => $this->getClass()->getAll(),
+            $this->getView() => $this->getRepository()->getAll(),
             'title' => $this->getTitle(),
             'get' => $_GET['id'],
             'value' => 'Данные из базы'
@@ -17,41 +17,43 @@ abstract class CRUD extends Controller
     
     public function oneAction() {
         var_dump($_POST);
-        var_dump($this->getClass()->getOne($_GET['id']));
+        var_dump($this->getRepository()->getOne($_GET['id']));
     }
     
     public function addAction() {
-        $newObject= $this->getClass();
+        $entityClass = $this->getRepository()->getEntityClass();
+//         $newObject= $this->getRepository();
+        $newObject= new $entityClass;
         $input = $_POST;
         foreach($input as $key => $value) {
             $setProperty = 'set' . ucfirst($key);
             $newObject->$setProperty($value);
         }
-        $newObject->save();
+        $this->getRepository()->save($newObject);
         $name = $this->getName();
         header("Location: /?c={$name}");
     }
     
         public function deleteAction() {
-            $newObject= $this->getClass();
+            $repository= $this->getRepository();
             $id = $_GET['id'];
-            $newObject->getOne($id)->delete();
+            $entity = $repository->getOne($id);
+            $repository->delete($entity);
             header("Location: /?c=good");
         }
     
     public function updateAction() {
         $id = $_GET['id'];
         $this->id = $id;
-        $updateObject = $this->getClass()->getOne($id);
+        $updateObject = $this->getRepository()->getOne($id);
         $params = $_POST;
         foreach ($params as $key => $value) {
             if($value) {
-//                 var_dump("set". ucfirst($key)); die;
                 $setProperty = "set". ucfirst($key);
                 $updateObject->$setProperty($value);
             }
         }
-        $updateObject->save();
+        $this->getRepository()->save($updateObject);
         $name = $this->getName();
         header("Location: /?c={$name}");
     }

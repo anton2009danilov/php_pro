@@ -1,12 +1,13 @@
 <?php
 namespace App\controllers;
 
-use App\models\Good;
+// use App\models\Good;
+use App\repositories\GoodRepository;
 
 class GoodController extends CRUD
 {
-    public function getClass() {
-        return new Good();
+    public function getRepository() {
+        return new GoodRepository();
     }
     
     public function getView() {

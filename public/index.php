@@ -5,6 +5,7 @@ use App\models\Good;
 use App\controllers\GoodController;
 use App\services\renders\TmplRenderService;
 use App\services\renders\TwigRenderService;
+use App\repositories\UserRepository;
 
 include dirname(__DIR__) . "/vendor/autoload.php";
 

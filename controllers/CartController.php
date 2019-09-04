@@ -19,5 +19,8 @@ class CartController extends CRUD
     public function getTitle() {
         return 'Корзина';
     }
+    public function getRepository()
+    {}
+
 }
 

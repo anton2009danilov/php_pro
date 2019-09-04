@@ -10,7 +10,8 @@ abstract class Controller
     protected $action;
     protected $renderer;
     
-    abstract public function getClass();
+//     abstract public function getClass();
+    abstract public function getRepository();
     abstract public function getView();
     abstract public function getName();
     abstract public function getTitle();

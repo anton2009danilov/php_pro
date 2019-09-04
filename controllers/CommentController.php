@@ -19,5 +19,8 @@ class CommentController extends CRUD
     public function getTitle() {
         return 'Комментарии';
     }
+    public function getRepository()
+    {}
+
 }
 
