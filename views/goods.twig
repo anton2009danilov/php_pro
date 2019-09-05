@@ -5,18 +5,18 @@
 {% block content %}
 
      {% for good in goods %}
-         <a href='?c=good&a=one&id={{ good.id }}'>{{ good.item_name }}</a>
-        [<a href='?c=good&id={{ good.id }}&update=true'>обновить данные о товаре</a>]
-        [<a href='?c=good&a=delete&id={{ good.id }}'>удалить</a>]<hr>
+         <a href='/good/one?id={{ good.id }}'>{{ good.item_name }}</a>
+        [<a href='/good?id={{ good.id }}&update=true'>обновить данные о товаре</a>]
+        [<a href='/good/delete?id={{ good.id }}'>удалить</a>]<hr>
     	{% if good.id == get%}
             <h3>Изменить данные о товаре</h3>
-            <form method='post' action='?c=good&a=update&id={{ good.id }}'>
+            <form method='post' action='/good/update?id={{ good.id }}'>
                 <input name='file_name' value='{{ good.file_name }}'><br><br>
                 <textarea rows='4' cols='50' name='description'>{{ good.description }}</textarea><br>
                 <input name='item_name' value='{{ good.item_name }}'><br><br>
                 <input name='price' value='{{ good.price }}'><br><br>
                 <input type='submit'>
-                <a href='http://php2/?c=good'>Отмена</a>
+                <a href='/good'>Отмена</a>
             </form>
          {% endif %}
      {% endfor %}
@@ -24,7 +24,7 @@
     
     
     <h3>Добавить товар</h3>
-    <form method="post" action="?c=good&a=add">
+    <form method="post" action="/good/add">
         <input name="file_name" placeholder="Имя файла"><br><br>
         <textarea rows="4" cols="50" name="description" placeholder="Описание товара"></textarea><br>
         <input name="item_name" placeholder="Имя товара"><br><br>

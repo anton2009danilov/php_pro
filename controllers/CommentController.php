@@ -1,26 +1,32 @@
 <?php
 namespace App\controllers;
+
 use App\models\Comment;
 
 class CommentController extends CRUD
 {
-    public function getClass() {
+
+    public function getClass()
+    {
         return new Comment();
     }
-    
-    public function getView() {
+
+    public function getView()
+    {
         return 'comments';
     }
-    
-    public function getName() {
+
+    public function getName()
+    {
         return 'comment';
     }
-    
-    public function getTitle() {
+
+    public function getTitle()
+    {
         return 'Комментарии';
     }
+
     public function getRepository()
     {}
-
 }
 

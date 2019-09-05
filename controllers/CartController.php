@@ -1,26 +1,32 @@
 <?php
 namespace App\controllers;
+
 use App\models\Cart;
 
 class CartController extends CRUD
 {
-    public function getClass() {
+
+    public function getClass()
+    {
         return new Cart();
     }
-    
-    public function getView() {
+
+    public function getView()
+    {
         return 'carts';
     }
-    
-    public function getName() {
+
+    public function getName()
+    {
         return 'cart';
     }
-    
-    public function getTitle() {
+
+    public function getTitle()
+    {
         return 'Корзина';
     }
+
     public function getRepository()
     {}
-
 }
 

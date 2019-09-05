@@ -28,6 +28,12 @@ class GoodRepository extends Repository
         return Good::class;
     }
     
+    public function getTableName(): string
+    {
+        return 'goods';
+    }
+    
+    
     
     /**
      * @return number
@@ -140,11 +146,6 @@ class GoodRepository extends Repository
     {
         $this->price = $price;
     }
-    
-    public function getTableName(): string
-    {
-        return 'goods';
-    }
-    
+
 }
 
