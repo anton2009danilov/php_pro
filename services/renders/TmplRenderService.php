@@ -1,6 +1,5 @@
 <?php
 namespace App\services\renders;
-use App\services\renders\IRenderService;
 
 class TmplRenderService implements IRenderService
 {

@@ -1,14 +1,12 @@
 <?php
-namespace App\models;
+namespace App\entities;
 
 /**
  * Class User
- *@package App\models
+ *@package App\entities
  *
- *@method self getOne()
- *@method self[] getAll()
  */
-class User extends Model
+class User extends Entity
 {
     private $id;
     private $fio;

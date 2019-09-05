@@ -1,23 +1,32 @@
 <?php
 namespace App\controllers;
+
 use App\models\Order;
 
 class OrderController extends CRUD
 {
-    public function getClass() {
+
+    public function getClass()
+    {
         return new Order();
     }
-    
-    public function getView() {
+
+    public function getView()
+    {
         return 'orders';
     }
-    
-    public function getName() {
+
+    public function getName()
+    {
         return 'order';
     }
-    
-    public function getTitle() {
+
+    public function getTitle()
+    {
         return 'Заказы';
     }
+
+    public function getRepository()
+    {}
 }
 
