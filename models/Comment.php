@@ -15,13 +15,6 @@ class Comment extends Model
     public $name;
     public $comment;
     
-    public $params = [
-        'id',
-        'item_id',
-        'name',
-        'comment',
-    ];
-    
     public function getTableName(): string
     {
         return 'comments';

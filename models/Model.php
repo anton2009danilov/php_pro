@@ -29,7 +29,7 @@ abstract class Model
         $data = [];
         foreach ($this as $property => $propertyValue) {
             if ($property != "id" && $property != "db") {
-                $data["{$property}"] = $propertyValue;
+                $data ["{$property}"] = $propertyValue;
             }
         }
         
@@ -50,14 +50,14 @@ abstract class Model
     
     public function delete() {
         $sql = "DELETE FROM `{$this->getTableName()}` WHERE id = :id";
-        $this->db->execute($sql, [':id' => $this->getId()]);
+        $this->db->execute($sql, [':id' => $this->id]);
     }
     
     public function save() {
-        if (empty($this->getId())) {
+        if (empty($this->id)) {
             $this->insert();
         } else {
-            $this->update($this->getId());
+            $this->update($this->id);
         }
     }
     
@@ -65,10 +65,13 @@ abstract class Model
         $columns = [];
         $params = [];
         
-        foreach ($this->params as $key => $value) {
-            $getProperty = "get" . ucfirst($value);
-            $columns[] = $value;
-            $params[":{$value}"] = $this->$getProperty();
+        foreach ($this as $key => $value) {
+            if ($key == 'db' ) {
+                continue;
+            }
+            
+                $columns[] = $key;
+                $params[":{$key}"] = $value;
         }
         
         $columnsString = implode(', ', $columns);
@@ -76,19 +79,21 @@ abstract class Model
         
         $sql = "INSERT INTO `{$this->getTableName()}` ($columnsString) VALUES ($placeholders)";
         $this->db->execute($sql, $params);
-        $this->setId = $this->db->lastInsertId();
+        $this->id = $this->db->lastInsertId();
     }
     
     private function update() {
         
         $columns = [];
         $params = [];
-
-        foreach ($this->params as $key => $value) {
+        
+        foreach ($this as $key => $value) {
+            if ($key == 'db' ) {
+                continue;
+            }
             
-            $getProperty = "get" . ucfirst($value);
-            $columns[] = $value;
-            $params[":{$value}"] = $this->$getProperty();
+            $columns[] = $key;
+            $params[":{$key}"] = $value;
         }
         
         $values = [];
@@ -102,6 +107,7 @@ abstract class Model
             $i++;
             
         }
+        
         $placeholders = implode(', ', $values);
         $sql = "UPDATE `{$this->getTableName()}` SET {$placeholders} WHERE id = :id";
         $this->db->execute($sql, $params);

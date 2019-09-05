@@ -3,66 +3,54 @@ namespace App\controllers;
 
 abstract class CRUD extends Controller
 {
-
-    public function allAction()
-    {
+    public function allAction() {
+        
         $params = [
-            // $this->getView() => $this->getRepository()->getAll(),
-            $this->getView() => $this->repository->getAll(),
+            $this->getView() => $this->getClass()->getAll(),
             'title' => $this->getTitle(),
-            'get' => $this->getId(),
+            'get' => $_GET['id'],
             'value' => 'Данные из базы'
         ];
         
         echo $this->render($this->getView(), $params);
     }
-
-    public function oneAction()
-    {
-//         var_dump($_POST);
-        $id = $this->getId();
-        var_dump($this->repository->getOne($id));
+    
+    public function oneAction() {
+        var_dump($_POST);
+        var_dump($this->getClass()->getOne($_GET['id']));
     }
-
-    public function addAction()
-    {
-        var_dump($newObject); exit;
-        $entityClass = $this->repository->getEntityClass();
-        $newObject = new $entityClass();
+    
+    public function addAction() {
+        $newObject= $this->getClass();
         $input = $_POST;
-        foreach ($input as $key => $value) {
-            $setProperty = 'set' . ucfirst($key);
-            $newObject->$setProperty($value);
+        foreach($input as $key => $value) {
+            $newObject->$key = $value;
         }
-        $this->repository->save($newObject);
+        $newObject->save();
         $name = $this->getName();
-        header("Location: /{$name}");
+        header("Location: /?c={$name}");
     }
-
-    public function deleteAction()
-    {
-        $id = $this->get('id');
-        $entity = $this->repository->getOne($id);
-        $this->repository->delete($entity);
-        $name = $this->getName();
-        header("Location: /{$name}");
-    }
-
-    public function updateAction()
-    {
-        $id = $this->getId();
-        $updateObject = $this->repository->getOne($id);
+    
+    //     public function deleteAction() {
+    //         $newObject= $this->getClass();
+    //         $id = $_GET['id'];
+    //         $newObject->getOne($id)->delete();
+    //         header("Location: /?c=good");
+    //     }
+    
+    public function updateAction() {
+        $id = $_GET['id'];
+        $this->id = $id;
+        $updateObject = $this->getClass()->getOne($id);
         $params = $_POST;
         foreach ($params as $key => $value) {
-            if ($value) {
-                $setProperty = "set" . ucfirst($key);
-                $updateObject->$setProperty($value);
+            if($value) {
+                $updateObject->$key = $value;
             }
         }
-        // $this->getRepository()->save($updateObject);
-        $this->repository->save($updateObject);
+        $updateObject->save();
         $name = $this->getName();
-        header("Location: /{$name}");
+        header("Location: /?c={$name}");
     }
 }
 

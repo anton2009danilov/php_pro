@@ -1,34 +1,26 @@
 <?php
 namespace App\controllers;
 
+use App\services\renders\TmplRenderService;
 use App\services\renders\IRenderService;
-use App\services\Request;
-
 
 abstract class Controller
 {
-
-    protected $defaultAction = 'all';
+    
+    protected  $defaultAction = 'all';
     protected $action;
     protected $renderer;
-    protected $request;
-
-    // abstract public function getClass();
-    // abstract public function getRepository();
+    
+    abstract public function getClass();
     abstract public function getView();
-
     abstract public function getName();
-
     abstract public function getTitle();
-
-    public function __construct(IRenderService $renderer, Request $request)
-    {
+    
+    public function __construct(IRenderService $renderer) {
         $this->renderer = $renderer;
-        $this->request = $request;
     }
-
-    public function run($actionName)
-    {
+        
+    public function run($actionName) {
         $this->action = $actionName ?: $this->defaultAction;
         $method = $this->action . 'Action';
         if (method_exists($this, $method)) {
@@ -37,18 +29,18 @@ abstract class Controller
             echo '404 a';
         }
     }
-
-    public function render($template, $params = [])
-    {   
+    
+    public function render($template, $params = []){
+        $title = $this->getTitle();
+        $content = $this->renderTmpl($template, $params);
+        return $this->renderTmpl('layouts/main', [
+            'Content' => $content,
+            'Title' => $title
+        ]);
+    }
+    
+    public function renderTmpl($template, $params = []) {
         return $this->renderer->render($template, $params);
-    }
-    
-    public function get($value = '') {
-        return $this->request->get($value);
-    }
-    
-    public function getId() {
-        return (int) $this->request->get('id');
     }
 }
 

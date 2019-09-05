@@ -2,13 +2,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>{{ Title }}</title>
+<title><?=$title?></title>
 </head>
 <body>
 	<ul>
 		<li><a href="/">Пользователи</a></li>
 		<li><a href="/?c=good">Товары</a></li>
 	</ul>
-	{{ Content|raw }}
+	<div class="content"><?=$content?></div>
 </body>
 </html>

@@ -15,12 +15,6 @@ class Cart extends Model
     public $session;
     public $quantity;
     
-    public $params = [
-        'id',
-        'user_id',
-        'session',
-        'quantity',
-    ];
     
     public function getTableName(): string
     {
