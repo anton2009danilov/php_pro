@@ -8,6 +8,8 @@
     <br>
     {% for item in cart%}
         <a href='/good/one?id={{ item.item_id }}'>{{ item.item_name }}</a>[{{ item.quantity }}]
+        <a href='/cart/deleteFromCart?id={{ item.item_id }}'>[ удалить ]</a>
+        
         <hr>
     {% endfor %}
 {% endblock %}

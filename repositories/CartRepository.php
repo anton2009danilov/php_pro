@@ -141,7 +141,7 @@ class CartRepository extends Repository
     }
     
     public function getItem($item_id, $session) {
-            $sql = "SELECT * FROM `carts` WHERE id = $item_id AND session = '{$session}'";
+            $sql = "SELECT * FROM `carts` WHERE item_id = $item_id AND session = '{$session}'";
             return $this->getDb()->queryObjects($sql, $this->getEntityClass());
     }
     
