@@ -39,7 +39,7 @@ abstract class Controller
     }
 
     public function render($template, $params = [])
-    {
+    {   
         return $this->renderer->render($template, $params);
     }
     

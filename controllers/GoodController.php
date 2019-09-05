@@ -25,9 +25,6 @@ class GoodController extends CRUD
         $this->repository = new GoodRepository();
     }
 
-    // public function getRepository() {
-    // return new GoodRepository();
-    // }
     public function getView()
     {
         return 'goods';
@@ -42,5 +39,6 @@ class GoodController extends CRUD
     {
         return 'Товары';
     }
+    
 }
 

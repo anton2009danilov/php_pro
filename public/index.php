@@ -1,9 +1,7 @@
 <?php
 
-use App\models\User;
-use App\models\Good;
-use App\controllers\GoodController;
-use App\repositories\UserRepository;
+session_start();
+
 use App\services\renders\TwigRenderService;
 include dirname(__DIR__) . "/vendor/autoload.php";
 
@@ -12,10 +10,7 @@ include dirname(__DIR__) . "/vendor/autoload.php";
 // } catch (\Exception $exception) {
 //     var_dump($exception->getMessage());
 // }
-
-
 $request = new \App\services\Request();
-
 $controllerName = $request->getControllerName() ?: 'user';
 $actionName = $request->getActionName() ?: '';
 

@@ -13,7 +13,7 @@ abstract class CRUD extends Controller
             'get' => $this->getId(),
             'value' => 'Данные из базы'
         ];
-
+        
         echo $this->render($this->getView(), $params);
     }
 
@@ -26,7 +26,7 @@ abstract class CRUD extends Controller
 
     public function addAction()
     {
-        // $entityClass = $this->getRepository()->getEntityClass();
+        var_dump($newObject); exit;
         $entityClass = $this->repository->getEntityClass();
         $newObject = new $entityClass();
         $input = $_POST;
@@ -34,7 +34,6 @@ abstract class CRUD extends Controller
             $setProperty = 'set' . ucfirst($key);
             $newObject->$setProperty($value);
         }
-        // $this->getRepository()->save($newObject);
         $this->repository->save($newObject);
         $name = $this->getName();
         header("Location: /{$name}");

@@ -24,6 +24,10 @@ abstract class Repository
         $this->db = DB::getInstance();
     }
     
+    public function getDb() {
+        return  $this->db;
+    }
+    
     /**
      * @param $id
      * @return null|Entity
@@ -31,6 +35,7 @@ abstract class Repository
     public  function getOne($id)
     {
         $sql = "SELECT * FROM `{$this->getTableName()}` WHERE id = :id";
+//         var_dump($this->getEntityClass());die;
         return $this->db->queryObject($sql, $this->getEntityClass(),[':id' => $id]);
     }
     

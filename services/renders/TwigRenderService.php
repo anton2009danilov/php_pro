@@ -11,8 +11,8 @@ class TwigRenderService implements IRenderService
     }
     
     public function render($template, $params = []) {
-            
             $template .= '.twig';
+//             var_dump($params, $template); die;
             return  $this->twig->render($template, $params);
 
     }
