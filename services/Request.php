@@ -11,19 +11,6 @@ class Request
     public function __construct() {
         $this->requestString = $_SERVER['REQUEST_URI'];
         $this->parseRequest();
-        
-
-//         try {
-//             throw new \Exception('Новая');
-//         } catch (ExQuery $exception) {
-//             var_dump($exception->getMessage());
-//         } catch (ExConnect $exception) {
-//             var_dump($exception->getMessage());
-//         } catch (\Exception $exception) {
-//             var_dump($exception->getMessage());
-//         } finally {
-//             echo 'Ok';
-//         }
     }
     
     protected function parseRequest() {
@@ -84,23 +71,3 @@ class Request
     }
 
 }
-
-
-// class Ex extends \Exception {
-//     public function get() {
-//       echo "Новая ошибка";
-//     }
-     
-// }
-// class ExConnect extends \Exception {
-//     public function get() {
-//       echo "ошибка ExConnect";
-//     }
-     
-// }
-// class ExQuery extends \Exception {
-//     public function get() {
-//       echo "ошибка ExQuery";
-//     }
-     
-// }
