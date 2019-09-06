@@ -3,6 +3,7 @@ namespace App\repositories;
 
 use App\services\DB;
 use App\entities\Entity;
+use App\main\App;
 
 /**
  * Class Repository
@@ -20,8 +21,8 @@ abstract class Repository
     abstract public function getEntityClass():string;
     
     public function __construct()
-    {
-        $this->db = DB::getInstance();
+    {   
+        $this->db = App::call()->db;
     }
     
     public function getDb() {

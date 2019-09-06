@@ -12,18 +12,12 @@ use App\traits\TSingleton;
  */
 class DB implements IDB
 {
-    use TSingleton;
-    
-    private $config = [
-        'driver' => 'mysql',
-        'host' => 'localhost',
-        'dbname' => 'store',
-        'charset' => 'UTF8',
-        'userName' => 'root',
-        'password' => '',
-    ];
-    
+    private $config = [];
     private $connection;
+    
+    public function __construct(array $config) {
+        $this->config = $config;
+    }
     
     protected function getConnect(): \PDO
     {
