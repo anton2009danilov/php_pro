@@ -14,19 +14,22 @@ abstract class CRUD extends Controller
             'value' => 'Данные из базы'
         ];
         
-        echo $this->render($this->getView(), $params);
+        if($_GET['update'] == true) {
+            echo $this->render($this->getUpdateView(), $params);
+        } else {
+            echo $this->render($this->getView(), $params);
+        }
+        
     }
 
     public function oneAction()
     {
-//         var_dump($_POST);
         $id = $this->getId();
         var_dump($this->repository->getOne($id));
     }
 
     public function addAction()
     {
-        var_dump($newObject); exit;
         $entityClass = $this->repository->getEntityClass();
         $newObject = new $entityClass();
         $input = $_POST;

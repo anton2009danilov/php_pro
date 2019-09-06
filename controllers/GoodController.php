@@ -29,6 +29,11 @@ class GoodController extends CRUD
     {
         return 'goods';
     }
+    
+    public function getUpdateView()
+    {
+        return 'good_update';
+    }
 
     public function getName()
     {
@@ -39,6 +44,8 @@ class GoodController extends CRUD
     {
         return 'Товары';
     }
+    
+    
     
 }
 
