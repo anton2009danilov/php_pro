@@ -132,7 +132,7 @@ class CartRepository extends Repository
     public  function getAll()
     {
         $sql = "
-            SELECT `carts`.`id`, `item_id`, `user_id`, `session`, `quantity`, `item_name`
+            SELECT `carts`.`id`, `item_id`, `user_id`, `session`, `quantity`, `item_name`, `price`
             FROM `carts`
             LEFT JOIN `goods`
             ON carts.item_id = goods.id;

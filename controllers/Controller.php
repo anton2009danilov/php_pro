@@ -50,5 +50,11 @@ abstract class Controller
     public function getId() {
         return (int) $this->request->get('id');
     }
+    
+    public function redirect($path = null) {
+        return $this->request->redirect($path);
+    }
+    
+    
 }
 

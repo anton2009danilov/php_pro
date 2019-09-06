@@ -9,6 +9,7 @@ class Request
     protected $params;
     
     public function __construct() {
+        session_start();
         $this->requestString = $_SERVER['REQUEST_URI'];
         $this->parseRequest();
     }
@@ -37,6 +38,8 @@ class Request
         
         return null;
     }
+    
+    
     
     /**
      * @return mixed
@@ -68,6 +71,28 @@ class Request
     public function getParams()
     {
         return $this->params;
+    }
+    
+//     public function getSession($key = null) {
+//         if (empty($key)){
+//             return $_SESSION;
+//         }
+        
+//         return !empty($_SESSION['key'])
+//             ? $_SESSION['key']
+//             : [];
+//     }
+    
+//     public function setSession ($key, $value) {
+//         $_SESSION['key'] = $value;
+//     }
+    
+    public function redirect($path = null) {
+        if (empty($path)) {
+            $path = $_SERVER['HTTP_REFERER'];
+        }
+        
+        header('Location: ' . $path);
     }
 
 }

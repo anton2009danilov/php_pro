@@ -42,11 +42,15 @@ class CartController extends CRUD
     
     public function addToCartAction() {
         $item_id = $this->getId();
-        $session = session_id();
-//         $cart = $this->repository->getAll();
-        $item = $this->repository->getItem($item_id, $session);
         
-//         var_dump($item, $item_id, $session); die;
+        if(empty($item_id)) {
+            return $this->redirect('/');
+        }
+        
+        $session = session_id();
+        
+        $item = $this->repository->getItem($item_id, $session);
+
         
         if(!empty($item)) {
             $newObject = $this->repository->getItem($item_id, $session)[0];
@@ -59,12 +63,10 @@ class CartController extends CRUD
             $newObject->setItem_id($item_id);
             $newObject->setSession($session);
             $newObject->setQuantity(1);
-//             var_dump($newObject);die;
         }
         
         $this->repository->save($newObject);
-        $name = $this->getName();
-        header("Location: /{$name}");
+        return $this->redirect();
         
     }
     
@@ -94,9 +96,7 @@ class CartController extends CRUD
             
         }
         
-        
-        $name = $this->getName();
-        header("Location: /{$name}");
+        return $this->redirect();
         
     }
 

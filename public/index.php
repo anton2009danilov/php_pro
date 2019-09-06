@@ -1,7 +1,4 @@
 <?php
-
-session_start();
-
 use App\services\renders\TwigRenderService;
 include dirname(__DIR__) . "/vendor/autoload.php";
 
