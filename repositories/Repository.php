@@ -20,9 +20,9 @@ abstract class Repository
     abstract public function getTableName():string;
     abstract public function getEntityClass():string;
     
-    public function __construct()
+    public function __construct($db)
     {   
-        $this->db = App::call()->db;
+        $this->db = $db;
     }
     
     public function getDb() {

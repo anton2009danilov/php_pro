@@ -5,12 +5,11 @@ namespace App\controllers;
 use App\repositories\CartRepository;
 use App\services\renders\IRenderService;
 use App\services\Request;
+use App\services\DB;
 
 
 class CartController extends CRUD
 {
-    protected $repository;
-    
     public $params = [
         'id',
         'item_id',
@@ -19,11 +18,6 @@ class CartController extends CRUD
         'quantity',
     ];
     
-    public function __construct(IRenderService $renderer, Request $request)
-    {
-        parent::__construct($renderer, $request);
-        $this->repository = new CartRepository();
-    }
     
     public function getView()
     {
@@ -49,23 +43,24 @@ class CartController extends CRUD
         
         $session = session_id();
         
-        $item = $this->repository->getItem($item_id, $session);
+        $name = $this->getName();
+        $item = $this->db->$name->getItem($item_id, $session);
 
         
         if(!empty($item)) {
-            $newObject = $this->repository->getItem($item_id, $session)[0];
+            $newObject = $this->db->$name->getItem($item_id, $session)[0];
             $quantity = $newObject->getQuantity() + 1;
             $newObject->setQuantity($quantity);
             
         } else {
-            $entityClass = $this->repository->getEntityClass();
+            $entityClass = $this->db->$name->getEntityClass();
             $newObject = new $entityClass();
             $newObject->setItem_id($item_id);
             $newObject->setSession($session);
             $newObject->setQuantity(1);
         }
         
-        $this->repository->save($newObject);
+        $this->db->$name->save($newObject);
         return $this->redirect();
         
     }
@@ -73,11 +68,11 @@ class CartController extends CRUD
     public function deleteFromCartAction() {
         $item_id = $this->getId();
         $session = session_id();
-
-        $item = $this->repository->getItem($item_id, $session);
+        $name = $this->getName();
+        $item = $this->db->$name->getItem($item_id, $session);
         
         if(!empty($item)) {
-            $newObject = $this->repository->getItem($item_id, $session)[0];
+            $newObject = $this->db->$name->getItem($item_id, $session)[0];
             $quantity = $newObject->getQuantity() - 1;
             $newObject->setQuantity($quantity);
             
@@ -90,9 +85,9 @@ class CartController extends CRUD
         }
 
         if($newObject->getQuantity() == 0) {
-            $this->repository->delete($newObject);
+            $this->db->$name->delete($newObject);
         } else {
-            $this->repository->save($newObject);
+            $this->db->$name->save($newObject);
             
         }
         

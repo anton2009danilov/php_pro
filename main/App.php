@@ -30,7 +30,7 @@ class App
 
     private function runController()
     {
-        $request = new \App\services\Request();
+        $request = App::call()->request;
         $controllerName = $request->getControllerName() ?: $this->config['defaultNameController'];
         $actionName = $request->getActionName() ?: '';
         
@@ -40,7 +40,11 @@ class App
             /**
              * @var $controller \App\controllers\UserController
              */
-            $controller = new $controllerClass(new TwigRenderService(), $request);
+            $controller = new $controllerClass(
+                App::call()->renderer,
+                $request,
+                App::call()->db
+                );
             $controller->run($actionName);
             
         } else {

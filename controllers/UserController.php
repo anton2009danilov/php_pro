@@ -4,17 +4,10 @@ namespace App\controllers;
 use App\repositories\UserRepository;
 use App\services\renders\IRenderService;
 use App\services\Request;
+use App\services\DB;
 
 class UserController extends CRUD
 {
-
-    protected $repository;
-
-    public function __construct(IRenderService $renderer, Request $request)
-    {
-        parent::__construct($renderer, $request);
-        $this->repository = new UserRepository();
-    }
 
     public function getRepository()
     {

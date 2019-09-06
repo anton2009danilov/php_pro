@@ -3,7 +3,8 @@ namespace App\controllers;
 
 use App\services\renders\IRenderService;
 use App\services\Request;
-
+use App\services\DB;
+use App\main\App;
 
 abstract class Controller
 {
@@ -12,6 +13,7 @@ abstract class Controller
     protected $action;
     protected $renderer;
     protected $request;
+    protected $db;
 
     // abstract public function getClass();
     // abstract public function getRepository();
@@ -21,10 +23,13 @@ abstract class Controller
 
     abstract public function getTitle();
 
-    public function __construct(IRenderService $renderer, Request $request)
+    public function __construct(IRenderService $renderer, Request $request, DB $db)
     {
         $this->renderer = $renderer;
         $this->request = $request;
+        $this->db = $db;
+        
+//         App::call()->db->getRepository('Good');
     }
 
     public function run($actionName)
