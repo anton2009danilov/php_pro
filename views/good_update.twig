@@ -1,0 +1,20 @@
+{% extends './layouts/main.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+     {% for good in goods %}
+    	{% if good.id == get %}
+            <h3>Изменить данные о товаре</h3>
+            <form method='post' action='/good/update?id={{ good.id }}'>
+                <input name='file_name' value='{{ good.file_name }}'><br><br>
+                <textarea rows='4' cols='50' name='description'>{{ good.description }}</textarea><br>
+                <input name='item_name' value='{{ good.item_name }}'><br><br>
+                <input name='price' value='{{ good.price }}'><br><br>
+                <input type='submit'>
+                <a href='/good'>Отмена</a>
+            </form>
+         {% endif %}
+     {% endfor %}
+
+{% endblock %}
