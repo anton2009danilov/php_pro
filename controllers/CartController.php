@@ -10,14 +10,6 @@ use App\services\DB;
 
 class CartController extends CRUD
 {
-    public $params = [
-        'id',
-        'item_id',
-        'user_id',
-        'session',
-        'quantity',
-    ];
-    
     
     public function getView()
     {
@@ -33,6 +25,27 @@ class CartController extends CRUD
     {
         return 'Корзина';
     }
+    
+
+    public function allAction()
+    {
+        $name = $this->getName();
+        $params = [
+            $this->getView() => $this->db->$name->getAllWhere('session', session_id()),
+            'title' => $this->getTitle(),
+            'get' => $this->getId(),
+            'session' => session_id(),
+        ];
+        if($_GET['update'] == true) {
+            echo $this->render($this->getUpdateView(), $params);
+        } else {
+            echo $this->render($this->getView(), $params);
+        }
+        
+    }
+    
+    
+    
     
     public function addToCartAction() {
         $item_id = $this->getId();
@@ -61,6 +74,7 @@ class CartController extends CRUD
         }
         
         $this->db->$name->save($newObject);
+        
         return $this->redirect();
         
     }

@@ -1,8 +1,6 @@
 <?php
 namespace App\services;
 
-use App\traits\TSingleton;
-
 /**
  * Class DB
  * @package App\services
@@ -90,11 +88,6 @@ class DB implements IDB
     
     public function lastInsertId () {
         return $this->getConnect()->lastInsertId();
-    }
-    
-    public function getRepository(string $name) {
-        $name = ucfirst($name) . 'Repository';
-        $this->$name;
     }
     
     public function __get($name) {

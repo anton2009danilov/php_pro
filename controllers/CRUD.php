@@ -11,12 +11,14 @@ abstract class CRUD extends Controller
             $this->getView() => $this->db->$name->getAll(),
             'title' => $this->getTitle(),
             'get' => $this->getId(),
-            'value' => 'Данные из базы'
+            'session' => session_id(),
         ];
-        
         if($_GET['update'] == true) {
             echo $this->render($this->getUpdateView(), $params);
-        } else {
+        } else if($_GET['create'] == true) {
+            echo $this->render($this->getCreateView(), $params);
+        }
+        else {
             echo $this->render($this->getView(), $params);
         }
         
@@ -41,7 +43,7 @@ abstract class CRUD extends Controller
         }
         $this->db->$name->save($newObject);
         $name = $this->getName();
-        header("Location: /{$name}");
+        $this->redirect();
     }
 
     public function deleteAction()
@@ -51,7 +53,7 @@ abstract class CRUD extends Controller
         $entity = $this->db->$name->getOne($id);
         $this->db->$name->delete($entity);
         $name = $this->getName();
-        header("Location: /{$name}");
+        $this->redirect();
     }
 
     public function updateAction()
@@ -66,10 +68,10 @@ abstract class CRUD extends Controller
                 $updateObject->$setProperty($value);
             }
         }
-        // $this->getRepository()->save($updateObject);
         $this->db->$name->save($updateObject);
         $name = $this->getName();
-        header("Location: /{$name}");
+        $this->redirect("/");
+        
     }
 }
 

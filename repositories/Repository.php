@@ -36,7 +36,6 @@ abstract class Repository
     public  function getOne($id)
     {
         $sql = "SELECT * FROM `{$this->getTableName()}` WHERE id = :id";
-//         var_dump($this->getEntityClass());die;
         return $this->db->queryObject($sql, $this->getEntityClass(),[':id' => $id]);
     }
     
@@ -72,6 +71,7 @@ abstract class Repository
         $placeholders = implode(', ', array_keys($params));
         
         $sql = "INSERT INTO `{$this->getTableName()}` ($columnsString) VALUES ($placeholders)";
+//         var_dump($sql, $params); die;
         $this->db->execute($sql, $params);
         $entity->setId($this->db->lastInsertId());
     }

@@ -1,24 +1,25 @@
 <?php
 namespace App\repositories;
 
-use App\entities\Cart;
+use App\entities\Order;
 use App\repositories\Repository;
 
-class CartRepository extends Repository
+class OrderRepository extends Repository
 {
     private $id;
-    private $item_id;
-    private $user_id;
+    private $name;
+    private $email;
     private $session;
-    private $quantity;
+    private $status;
     
     public $params = [
         'id',
-        'item_id',
-        'user_id',
+        '$name',
+        '$email',
         'session',
-        'quantity',
+        'status',
     ];
+    
 
     /**
      * @return mixed
@@ -120,34 +121,32 @@ class CartRepository extends Repository
     
     
     public function getEntityClass(): string {
-        return Cart::class;
+        return Order::class;
     }
     
     public function getTableName(): string
     {
-        return 'carts';
+        return 'orders';
     }
     
     public  function getAll()
     {
         $sql = "
-            SELECT `carts`.`id`, `item_id`, `user_id`, `session`, `quantity`, `item_name`, `price`
-            FROM `carts`
-            LEFT JOIN `goods`
-            ON carts.item_id = goods.id;
+            SELECT `orders`.`id`, `orders`.`name`, `email`, `orders`.`session`, `status`, `carts`.`id` as `cart_id`
+            FROM `orders`
+            LEFT JOIN `carts`
+            ON orders.session = carts.session;
     "; 
         return $this->getDb()->queryObjects($sql, $this->getEntityClass());
     }
     
     public  function getAllWhere($param, $value)
     {
-        
         $sql = "
-            SELECT `carts`.`id`, `item_id`, `user_id`, `session`, `quantity`, `item_name`, `price`
-            FROM `carts`
-            LEFT JOIN `goods`
-            ON carts.item_id = goods.id
-            WHERE `$param` = '$value'
+            SELECT `orders`.`id`, `orders`.`name`, `email`, `orders`.`session`, `status`, `carts`.`id` as `cart_id`
+            FROM `orders`
+            LEFT JOIN `carts`
+            ON orders.session = carts.session;
     ";
         return $this->getDb()->queryObjects($sql, $this->getEntityClass());
     }

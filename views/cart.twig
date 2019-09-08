@@ -7,11 +7,12 @@
 	
 	{% if cart %}
 	<h3>
-		<a href='#'>[ Купить ]</a>
+		<a href='/order?create=true'>[ Купить ]</a>
 	</h3>
 	{% endif %}
 	
-    {% for item in cart%}
+	
+    {% for item in cart %}
     	<div>
             <a href='/good/one?id={{ item.item_id }}'>{{ item.item_name }}</a>
             (Цена: {{ item.price }} рублей) [{{ item.quantity }}]

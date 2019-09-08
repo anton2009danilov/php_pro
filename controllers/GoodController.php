@@ -10,14 +10,6 @@ use App\services\DB;
 class GoodController extends CRUD
 {
 
-    public $params = [
-        'id',
-        'fio',
-        'login',
-        'password'
-    ];
-
-
     public function getView()
     {
         return 'goods';
