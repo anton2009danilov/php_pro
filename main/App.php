@@ -33,7 +33,6 @@ class App
         $request = App::call()->request;
         $controllerName = $request->getControllerName() ?: $this->config['defaultNameController'];
         $actionName = $request->getActionName() ?: '';
-        
         $controllerClass = 'App\\controllers\\' . ucfirst($controllerName) . 'Controller';
         
         if (class_exists($controllerClass)) {

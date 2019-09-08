@@ -4,7 +4,7 @@
 
 {% block content %}
      {% for order in orders %}
-         <a href='/cart/one?id={{ order.cart_id }}'>Заказ № {{ order.id}} {{ order.email }}</a>
+         <a href='/cart/one?session={{ order.session }}'>Заказ № {{ order.id}} {{ order.email }}</a>
         [<a href='/order?id={{ order.id }}&update=true'>обновить данные о заказе</a>]
         [<a href='/order/delete?id={{ order.id }}'>удалить</a>]
         <hr>

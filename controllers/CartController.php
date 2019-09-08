@@ -44,7 +44,18 @@ class CartController extends CRUD
         
     }
     
-    
+    public function oneAction()
+    {
+        $name = $this->getName();
+        $session = $_GET['session'];
+        
+        $params = [
+            $this->getView() => $this->db->$name->getAllWhere('session', $session),
+            'title' => $this->getTitle(),
+        ];
+        
+        echo $this->render($this->getView(), $params);
+    }
     
     
     public function addToCartAction() {
@@ -108,6 +119,8 @@ class CartController extends CRUD
         return $this->redirect();
         
     }
+    
+    
 
 }
 

@@ -26,7 +26,7 @@ class OrderController extends CRUD
         return 'Заказы';
     }
     
-    public function createOrderAction() {
+    public function createAction() {
         $session = session_id();
         $name = $_POST['name'];
         $email= $_POST['email'];
@@ -39,10 +39,9 @@ class OrderController extends CRUD
         $newObject->setEmail($email);
         $this->db->$className->save($newObject);
         $name = $this->getName();
-        header("Location: /{$name}");
         
+        header("Location: /{$name}");
         session_regenerate_id(true);
-        $session = session_id();
         
     }
     
@@ -50,18 +49,21 @@ class OrderController extends CRUD
     {
         $name = $this->getName();
         $params = [
-            $this->getView() => $this->db->$name->getAllWhere('session', session_id()),
+            $this->getView() => $this->db->$name->getAll(),
             'title' => $this->getTitle(),
             'get' => $this->getId(),
             'session' => session_id(),
-            'value' => 'Данные из базы'
         ];
-//         var_dump($params);die;
+        
         if($_GET['update'] == true) {
             echo $this->render($this->getUpdateView(), $params);
-        } else {
+        } else if($_GET['create'] == true) {
+            echo $this->render($this->getCreateView(), $params);
+        }
+        else {
             echo $this->render($this->getView(), $params);
         }
     }
+    
 }
 

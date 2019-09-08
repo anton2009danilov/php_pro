@@ -56,6 +56,10 @@ abstract class Controller
         return (int) $this->request->get('id');
     }
     
+    public function getSession() {
+        return (int) $this->request->get('session');
+    }
+    
     public function redirect($path = null) {
         return $this->request->redirect($path);
     }

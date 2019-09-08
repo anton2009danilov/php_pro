@@ -13,6 +13,7 @@ abstract class CRUD extends Controller
             'get' => $this->getId(),
             'session' => session_id(),
         ];
+        
         if($_GET['update'] == true) {
             echo $this->render($this->getUpdateView(), $params);
         } else if($_GET['create'] == true) {

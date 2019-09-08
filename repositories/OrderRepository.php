@@ -129,21 +129,10 @@ class OrderRepository extends Repository
         return 'orders';
     }
     
-    public  function getAll()
-    {
-        $sql = "
-            SELECT `orders`.`id`, `orders`.`name`, `email`, `orders`.`session`, `status`, `carts`.`id` as `cart_id`
-            FROM `orders`
-            LEFT JOIN `carts`
-            ON orders.session = carts.session;
-    "; 
-        return $this->getDb()->queryObjects($sql, $this->getEntityClass());
-    }
-    
     public  function getAllWhere($param, $value)
     {
         $sql = "
-            SELECT `orders`.`id`, `orders`.`name`, `email`, `orders`.`session`, `status`, `carts`.`id` as `cart_id`
+            SELECT `orders`.`id`, `orders`.`name`, `email`, `orders`.`session`, `status` 
             FROM `orders`
             LEFT JOIN `carts`
             ON orders.session = carts.session;

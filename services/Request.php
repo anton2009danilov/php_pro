@@ -31,6 +31,7 @@ class Request
         if (empty($val)){
             return $this->params['get'];
         }
+//         var_dump($val); die;
     
         if (isset($this->params['get'][$val])) {
             return $this->params['get'][$val];
