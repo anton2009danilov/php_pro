@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Авг 29 2019 г., 00:49
+-- Время создания: Сен 09 2019 г., 13:55
 -- Версия сервера: 5.7.23
 -- Версия PHP: 7.1.22
 
@@ -35,6 +35,30 @@ CREATE TABLE `carts` (
   `session` text NOT NULL,
   `quantity` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `carts`
+--
+
+INSERT INTO `carts` (`id`, `item_id`, `user_id`, `session`, `quantity`) VALUES
+(18, 2, NULL, '2arf35gl57n3toq1v967hqnjq2o2eud1', 7),
+(22, 22, NULL, '2arf35gl57n3toq1v967hqnjq2o2eud1', 4),
+(23, 21, NULL, '2arf35gl57n3toq1v967hqnjq2o2eud1', 4),
+(28, 2, NULL, '6166segrvii2enqacmn235mu8m42m21k', 2),
+(29, 2, NULL, 'qn5fhivtg13ir895cpu2r03m60q64342', 1),
+(30, 2, NULL, 'rhqu7ijf02bmmkfafkpjk58c2dsmtqm6', 3),
+(31, 21, NULL, 'rhqu7ijf02bmmkfafkpjk58c2dsmtqm6', 1),
+(32, 22, NULL, 'rhqu7ijf02bmmkfafkpjk58c2dsmtqm6', 1),
+(33, 2, NULL, 'o2nqjd678m465me8n4ahlpp2neuj60jr', 3),
+(34, 21, NULL, 'o2nqjd678m465me8n4ahlpp2neuj60jr', 1),
+(35, 22, NULL, '0gp1ka8tqi6b9g9p0j7t11fl4853ggog', 2),
+(36, 2, NULL, '0gp1ka8tqi6b9g9p0j7t11fl4853ggog', 3),
+(37, 2, NULL, 'i3jvtu37clan2bj5oak4ufd2crbc4fb1', 1),
+(38, 22, NULL, 'i3jvtu37clan2bj5oak4ufd2crbc4fb1', 2),
+(39, 21, NULL, 'i3jvtu37clan2bj5oak4ufd2crbc4fb1', 1),
+(40, 2, NULL, 'd4c0p4tui8qm7ri626lsvufh5utbcs84', 1),
+(41, 21, NULL, 'd4c0p4tui8qm7ri626lsvufh5utbcs84', 2),
+(42, 22, NULL, 'd4c0p4tui8qm7ri626lsvufh5utbcs84', 1);
 
 -- --------------------------------------------------------
 
@@ -77,9 +101,9 @@ CREATE TABLE `goods` (
 --
 
 INSERT INTO `goods` (`id`, `file_name`, `views`, `likes`, `description`, `item_name`, `price`) VALUES
-(1, 'frog.jpg', 0, 0, 'Весёлая, зелёная, квакает. Лягуха!', 'Лягушка', 150),
 (2, 'pikachu.jpg', 5, 2, 'Веселый покемон Пикачу', 'Пикачу', 200),
-(4, 'frog.jpg', NULL, NULL, 'Весёлая, зелёная, квакает. Лягуха! Cупер!!!!', 'Лягушка', 150);
+(21, 'bear.jpg', NULL, NULL, 'Мягкий и добрый мишка', 'Медведь', 244),
+(22, 'panda.jpg', NULL, NULL, 'Большой панда', 'Панда', 333);
 
 -- --------------------------------------------------------
 
@@ -92,8 +116,15 @@ CREATE TABLE `orders` (
   `name` text NOT NULL,
   `email` text NOT NULL,
   `session` text NOT NULL,
-  `status` varchar(30) NOT NULL
+  `status` varchar(30) DEFAULT 'новый'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `orders`
+--
+
+INSERT INTO `orders` (`id`, `name`, `email`, `session`, `status`) VALUES
+(9, '1111111111', 'anton2009danilov@yandex.ru', 'd4c0p4tui8qm7ri626lsvufh5utbcs84', NULL);
 
 -- --------------------------------------------------------
 
@@ -113,20 +144,13 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `fio`, `login`, `password`) VALUES
-(1, 'Петров Д.Д.', 'Danila4000', 'ElKi'),
+(1, 'Петров Д.Д.', 'Danila40001', 'ElKi'),
 (3, 'Иванов И.И.', 'Ivan2059', 'VaLeNki32841'),
-(10, 'Иванов Д.Д.', 'Danila5000', 'VaLeNhhesjkki32841'),
-(11, 'Иванов Д.Д.', 'Danila5000', 'VaLeNhhesjkki32841'),
-(12, 'Иванов Д.Д.', 'Danila5000', 'VaLeNhhesjkki32841'),
-(13, 'Иванов Д.Д.', 'Danila5000', 'VaLeNhhesjkki32841'),
-(14, 'Иванов Д.Д.', 'Danila5000', 'VaLeNhhesjkki32841'),
-(15, 'Иванов Д.Д.', 'Danila5000', 'VaLeNhhesjkki32841'),
-(16, 'Иванов Д.Д.', 'Danila5000', 'VaLeNhhesjkki32841'),
-(17, 'Иванов Д.Д.', 'Danila5000', 'VaLeNhhesjkki32841'),
-(18, 'Иванов Д.Д.', 'Danila5000', 'VaLeNhhesjkki32841'),
-(19, 'Иванов Д.Д.', 'Danila5000', 'VaLeNhhesjkki32841'),
+(19, 'Иванов Д.Д.', 'Danila5000', 'VaLeNhhesjkki3284444'),
 (20, 'Петров М.Д.', 'Danila4000', 'ElKi'),
-(21, 'Петров М.Д.', 'Danila4000', 'ElKi');
+(21, 'Петров М.Д.', 'Danila4000', 'ElKi'),
+(22, 'Петров Ф.Д.', 'Danila4000', 'ElKi'),
+(23, 'Петров Ф.Д.', 'Danila4000', 'ElKi');
 
 --
 -- Индексы сохранённых таблиц
@@ -170,7 +194,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT для таблицы `carts`
 --
 ALTER TABLE `carts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT для таблицы `comments`
@@ -182,19 +206,19 @@ ALTER TABLE `comments`
 -- AUTO_INCREMENT для таблицы `goods`
 --
 ALTER TABLE `goods`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT для таблицы `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT для таблицы `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
