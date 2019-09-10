@@ -11,6 +11,11 @@ class OrderController extends CRUD
         return 'orders';
     }
     
+    public function getUpdateView()
+    {
+        return 'order_update';
+    }
+    
     public function getCreateView()
     {
         return 'order_create';
@@ -32,6 +37,7 @@ class OrderController extends CRUD
         $email= $_POST['email'];
         
         $className = $this->getName();
+//         $entityClass = $this->db->{$this->getName()}->getEntityClass();
         $entityClass = $this->db->$className->getEntityClass();
         $newObject = new $entityClass();
         $newObject->setName($name);
@@ -47,6 +53,7 @@ class OrderController extends CRUD
     
     public function allAction()
     {
+        
         $name = $this->getName();
         $params = [
             $this->getView() => $this->db->$name->getAll(),

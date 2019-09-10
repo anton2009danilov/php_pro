@@ -1,0 +1,19 @@
+{% extends './layouts/main.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+     {% for order in orders %}
+    	{% if order.id == get %}
+            <h3>Изменить данные о товаре</h3>
+            <form method='post' action='/order/update?id={{ order.id }}'>
+                <input name='name' value='{{ order.name }}'><br><br>
+                <input name='email' value='{{ order.email}}'><br><br>
+                <input name='status' value='{{ order.status}}'><br><br>
+                <input type='submit'>
+                <a href='/good'>Отмена</a>
+            </form>
+         {% endif %}
+     {% endfor %}
+
+{% endblock %}

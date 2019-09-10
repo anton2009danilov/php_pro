@@ -61,7 +61,7 @@ abstract class Controller
     }
     
     public function redirect($path = null) {
-        return $this->request->redirect($path);
+        $this->request->redirect($path);
     }
     
     

@@ -71,7 +71,7 @@ abstract class CRUD extends Controller
         }
         $this->db->$name->save($updateObject);
         $name = $this->getName();
-        $this->redirect("/");
+        $this->redirect("/" . $this->getName());
         
     }
 }
