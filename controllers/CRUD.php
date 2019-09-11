@@ -22,7 +22,6 @@ abstract class CRUD extends Controller
         else {
             echo $this->render($this->getView(), $params);
         }
-        
     }
 
     public function oneAction()
@@ -37,7 +36,7 @@ abstract class CRUD extends Controller
         $name = $this->getName();
         $entityClass = $this->db->$name->getEntityClass();
         $newObject = new $entityClass();
-        $input = $_POST;
+        $input = $this->request->post();
         foreach ($input as $key => $value) {
             $setProperty = 'set' . ucfirst($key);
             $newObject->$setProperty($value);
@@ -62,7 +61,7 @@ abstract class CRUD extends Controller
         $name = $this->getName();
         $id = $this->getId();
         $updateObject = $this->db->$name->getOne($id);
-        $params = $_POST;
+        $params = $this->request->post();
         foreach ($params as $key => $value) {
             if ($value) {
                 $setProperty = "set" . ucfirst($key);

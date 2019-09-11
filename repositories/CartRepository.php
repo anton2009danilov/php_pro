@@ -22,7 +22,7 @@ class CartRepository extends Repository
             FROM `carts`
             LEFT JOIN `goods`
             ON carts.item_id = goods.id;
-    "; 
+    ";
         return $this->getDb()->queryObjects($sql, $this->getEntityClass());
     }
     

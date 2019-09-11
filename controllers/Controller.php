@@ -41,6 +41,7 @@ abstract class Controller
         } else {
             echo '404 a';
         }
+        
     }
 
     public function render($template, $params = [])

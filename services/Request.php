@@ -40,6 +40,19 @@ class Request
         return null;
     }
     
+    public function post($val = '') {
+        if (empty($val)){
+            return $this->params['post'];
+        }
+//         var_dump($val); die;
+    
+        if (isset($this->params['post'][$val])) {
+            return $this->params['post'][$val];
+        }
+        
+        return null;
+    }
+    
     
     
     /**

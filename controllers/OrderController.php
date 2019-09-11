@@ -33,8 +33,8 @@ class OrderController extends CRUD
     
     public function createAction() {
         $session = session_id();
-        $name = $_POST['name'];
-        $email= $_POST['email'];
+        $name = $this->request->post('name');
+        $email= $this->request->post('email');
         
         $className = $this->getName();
 //         $entityClass = $this->db->{$this->getName()}->getEntityClass();
@@ -62,9 +62,9 @@ class OrderController extends CRUD
             'session' => session_id(),
         ];
         
-        if($_GET['update'] == true) {
+        if($this->request->get('update') == true) {
             echo $this->render($this->getUpdateView(), $params);
-        } else if($_GET['create'] == true) {
+        } else if($this->request->get('create') == true) {
             echo $this->render($this->getCreateView(), $params);
         }
         else {

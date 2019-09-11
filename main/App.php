@@ -27,7 +27,7 @@ class App
         $this->config = $config;
         $this->runController();
     }
-
+    
     private function runController()
     {
         $request = App::call()->request;
