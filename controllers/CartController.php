@@ -5,25 +5,11 @@ namespace App\controllers;
 use App\repositories\CartRepository;
 use App\services\renders\IRenderService;
 use App\services\Request;
+use App\services\DB;
 
 
 class CartController extends CRUD
 {
-    protected $repository;
-    
-    public $params = [
-        'id',
-        'item_id',
-        'user_id',
-        'session',
-        'quantity',
-    ];
-    
-    public function __construct(IRenderService $renderer, Request $request)
-    {
-        parent::__construct($renderer, $request);
-        $this->repository = new CartRepository();
-    }
     
     public function getView()
     {
@@ -40,42 +26,78 @@ class CartController extends CRUD
         return 'Корзина';
     }
     
+
+    public function allAction()
+    {
+        $name = $this->getName();
+        $params = [
+            $this->getView() => $this->db->$name->getAllWhere('session', session_id()),
+            'title' => $this->getTitle(),
+            'get' => $this->getId(),
+            'session' => session_id(),
+        ];
+        if($_GET['update'] == true) {
+            echo $this->render($this->getUpdateView(), $params);
+        } else {
+            echo $this->render($this->getView(), $params);
+        }
+        
+    }
+    
+    public function oneAction()
+    {
+        $name = $this->getName();
+        $session = $_GET['session'];
+        
+        $params = [
+            $this->getView() => $this->db->$name->getAllWhere('session', $session),
+            'title' => $this->getTitle(),
+        ];
+        
+        echo $this->render($this->getView(), $params);
+    }
+    
+    
     public function addToCartAction() {
         $item_id = $this->getId();
-        $session = session_id();
-//         $cart = $this->repository->getAll();
-        $item = $this->repository->getItem($item_id, $session);
         
-//         var_dump($item, $item_id, $session); die;
+        if(empty($item_id)) {
+            return $this->redirect('/');
+        }
+        
+        $session = session_id();
+        
+        $name = $this->getName();
+        $item = $this->db->$name->getItem($item_id, $session);
+
         
         if(!empty($item)) {
-            $newObject = $this->repository->getItem($item_id, $session)[0];
+            $newObject = $this->db->$name->getItem($item_id, $session)[0];
             $quantity = $newObject->getQuantity() + 1;
             $newObject->setQuantity($quantity);
             
         } else {
-            $entityClass = $this->repository->getEntityClass();
+            $entityClass = $this->db->$name->getEntityClass();
             $newObject = new $entityClass();
             $newObject->setItem_id($item_id);
             $newObject->setSession($session);
             $newObject->setQuantity(1);
-//             var_dump($newObject);die;
         }
         
-        $this->repository->save($newObject);
-        $name = $this->getName();
-        header("Location: /{$name}");
+        $this->db->$name->save($newObject);
+        
+        return $this->redirect();
         
     }
     
     public function deleteFromCartAction() {
         $item_id = $this->getId();
         $session = session_id();
-
-        $item = $this->repository->getItem($item_id, $session);
+        $name = $this->getName();
+        $item = $this->db->$name->getItem($item_id, $session);
         
         if(!empty($item)) {
-            $newObject = $this->repository->getItem($item_id, $session)[0];
+            $newObject = $this->db->$name->getItem($item_id, $session)[0];
             $quantity = $newObject->getQuantity() - 1;
             $newObject->setQuantity($quantity);
             
@@ -88,17 +110,17 @@ class CartController extends CRUD
         }
 
         if($newObject->getQuantity() == 0) {
-            $this->repository->delete($newObject);
+            $this->db->$name->delete($newObject);
         } else {
-            $this->repository->save($newObject);
+            $this->db->$name->save($newObject);
             
         }
         
-        
-        $name = $this->getName();
-        header("Location: /{$name}");
+        return $this->redirect();
         
     }
+    
+    
 
 }
 
