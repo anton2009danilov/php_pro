@@ -1,0 +1,23 @@
+{% extends './layouts/main.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+	<h1>{{ title }}</h1>
+
+    {% for user in users %}
+        <a href='/user/one?id={{ user.id }}'>{{ user.login }}</a>
+        [<a href='/user?id={{ user.id }}&update=true'>обновить данные о пользователе</a>]
+        [<a href='/user/delete?id={{ user.id }}'>удалить</a>]
+        <hr>
+    {% endfor %}
+
+    
+    <h3>Добавить пользователя</h3>
+        <form method="post" action="/user/add">
+            <input name="fio" placeholder="ФИО"><br><br>
+            <input name="login" placeholder="Логин"><br><br>
+            <input type="password" name="password" placeholder="Пароль"><br><br>
+            <input type="submit">
+    </form>
+{% endblock %}

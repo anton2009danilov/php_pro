@@ -1,0 +1,28 @@
+{% extends './layouts/main.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+	<h1>{{ title }}</h1>
+	
+	{% if cart %}
+	<h3>
+		<a href='/order?create=true'>[ Купить ]</a>
+	</h3>
+	{% endif %}
+	
+	
+    {% for item in cart %}
+    	<div>
+            <a href='/good/one?id={{ item.item_id }}'>{{ item.item_name }}</a>
+            (Цена: {{ item.price }} рублей) [{{ item.quantity }}]
+            <a href='/good/one?id={{ item.item_id }}'>{{ item.item_name }}</a>
+            <a href='/cart/addToCart?id={{ item.item_id }}'>[ + ]</a>
+            <a href='/cart/deleteFromCart?id={{ item.item_id }}'>[ - ]</a>
+    	</div>
+        
+        <hr>
+    {% else %}
+    	<p>В корзине нет товаров</p>
+    {% endfor %}
+{% endblock %}

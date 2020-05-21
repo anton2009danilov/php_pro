@@ -1,0 +1,19 @@
+{% extends './layouts/main.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+     {% for user in users %}
+    	{% if user.id == get %}
+            <h3>Изменить данные о пользователе</h3>
+            <form method='post' action='/user/update?id={{ user.id }}'>
+                <input name='fio' value='{{ user.fio }}'><br><br>
+                <input name='login' value='{{ user.login }}'><br><br>
+                <input name='password' value='{{ user.password }}'><br><br>
+                <input type='submit'>
+                <a href='/user'>Отмена</a>
+            </form>
+         {% endif %}
+     {% endfor %}
+
+{% endblock %}
