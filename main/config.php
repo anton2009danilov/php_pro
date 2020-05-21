@@ -8,6 +8,7 @@ return [
             'config' => [
                 'driver' => 'mysql',
                 'host' => 'localhost',
+                'port' => '3307',
                 'dbname' => 'store',
                 'charset' => 'UTF8',
                 'userName' => 'root',

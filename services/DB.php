@@ -20,12 +20,19 @@ class DB implements IDB
     
     protected function getConnect(): \PDO
     {
+
         if (empty($this->connection)) {
+//            $link = mysqli_connect("localhost", "root", "", "store");
+//            var_dump($this->config['port']);die;
+//            var_dump($this->getDsnString());die;
+
+
             $this->connection = new \PDO(
                 $this->getDsnString(),
                 $this->config['userName'],
                 $this->config['password']
                 );
+
             $this->connection->setAttribute(
                 \PDO::ATTR_DEFAULT_FETCH_MODE,
                 \PDO::FETCH_ASSOC
@@ -36,9 +43,10 @@ class DB implements IDB
     
     private function getDsnString():string {
         return sprintf(
-                '%s:host=%s;dbname=%s;charset=%s',
+                '%s:host=%s;port=%s;dbname=%s;charset=%s',
                 $this->config['driver'],
                 $this->config['host'],
+                $this->config['port'],
                 $this->config['dbname'],
                 $this->config['charset']
             );

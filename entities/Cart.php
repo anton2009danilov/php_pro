@@ -108,7 +108,5 @@ class Cart extends Entity
         return 'carts';
     }
     
-   
-
 }
 

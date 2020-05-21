@@ -142,6 +142,14 @@ class Good extends Entity
     {
         return 'goods';
     }
+    
+    public function getNewPrice($sale = null) {
+        if (empty($sale)) {
+            return $this->getPrice() * .9;
+        }
+        
+        return $this->getPrice() - $sale;
+    }
 
 }
 
