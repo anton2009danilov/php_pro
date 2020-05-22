@@ -2,13 +2,16 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="shortcut icon" type="image/png" href="/img/logo.png" />
 <title>{% block title %}{% endblock %}</title>
+
 </head>
 <body>
 	<ul>
-		<li><a href="/">Пользователи</a></li>
+		<li><a href="/user">Пользователи</a></li>
 		<li><a href="/good">Товары</a></li>
 		<li><a href="/cart">Корзина</a></li>
+		<li><a href="/order">Заказы</a></li>
 	</ul>
 	{% block content %}
 	{% endblock %}

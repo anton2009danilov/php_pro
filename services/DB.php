@@ -1,29 +1,22 @@
 <?php
 namespace App\services;
 
-use App\traits\TSingleton;
-
 /**
  * Class DB
  * @package App\services
  * 
- * @method static DB getInstance()
- *
+ * @property GoodRepository good
+ * @property UserRepository user
  */
 class DB implements IDB
 {
-    use TSingleton;
-    
-    private $config = [
-        'driver' => 'mysql',
-        'host' => 'localhost',
-        'dbname' => 'store',
-        'charset' => 'UTF8',
-        'userName' => 'root',
-        'password' => '',
-    ];
-    
+    private $config = [];
     private $connection;
+    private $repositories = [];
+    
+    public function __construct(array $config) {
+        $this->config = $config;
+    }
     
     protected function getConnect(): \PDO
     {
@@ -95,6 +88,24 @@ class DB implements IDB
     
     public function lastInsertId () {
         return $this->getConnect()->lastInsertId();
+    }
+    
+    public function __get($name) {
+        if(array_key_exists($name, $this->repositories)) {
+            return $this->repositories[$name];
+        }
+        
+        $name = ucfirst($name) . 'Repository';
+        
+        $repositoryName = 'App\\repositories\\' . $name;
+        
+        if (!class_exists($repositoryName)) {
+            return null;
+        }
+        
+        $repository = new $repositoryName($this);
+        $this->repositories[$name] = $repository;
+        return $repository;
     }
     
 }

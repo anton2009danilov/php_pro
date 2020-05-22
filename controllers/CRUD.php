@@ -6,52 +6,62 @@ abstract class CRUD extends Controller
 
     public function allAction()
     {
+        $name = $this->getName();
         $params = [
-            // $this->getView() => $this->getRepository()->getAll(),
-            $this->getView() => $this->repository->getAll(),
+            $this->getView() => $this->db->$name->getAll(),
             'title' => $this->getTitle(),
             'get' => $this->getId(),
-            'value' => 'Данные из базы'
+            'session' => session_id(),
         ];
         
-        echo $this->render($this->getView(), $params);
+        if($_GET['update'] == true) {
+            echo $this->render($this->getUpdateView(), $params);
+        } else if($_GET['create'] == true) {
+            echo $this->render($this->getCreateView(), $params);
+        }
+        else {
+            echo $this->render($this->getView(), $params);
+        }
+        
     }
 
     public function oneAction()
-    {
-//         var_dump($_POST);
+    {   
+        $name = $this->getName();
         $id = $this->getId();
-        var_dump($this->repository->getOne($id));
+        var_dump($this->db->$name->getOne($id));
     }
 
     public function addAction()
     {
-        var_dump($newObject); exit;
-        $entityClass = $this->repository->getEntityClass();
+        $name = $this->getName();
+        $entityClass = $this->db->$name->getEntityClass();
         $newObject = new $entityClass();
         $input = $_POST;
         foreach ($input as $key => $value) {
             $setProperty = 'set' . ucfirst($key);
             $newObject->$setProperty($value);
         }
-        $this->repository->save($newObject);
+        $this->db->$name->save($newObject);
         $name = $this->getName();
-        header("Location: /{$name}");
+        $this->redirect();
     }
 
     public function deleteAction()
     {
-        $id = $this->get('id');
-        $entity = $this->repository->getOne($id);
-        $this->repository->delete($entity);
         $name = $this->getName();
-        header("Location: /{$name}");
+        $id = $this->get('id');
+        $entity = $this->db->$name->getOne($id);
+        $this->db->$name->delete($entity);
+        $name = $this->getName();
+        $this->redirect();
     }
 
     public function updateAction()
-    {
+    {   
+        $name = $this->getName();
         $id = $this->getId();
-        $updateObject = $this->repository->getOne($id);
+        $updateObject = $this->db->$name->getOne($id);
         $params = $_POST;
         foreach ($params as $key => $value) {
             if ($value) {
@@ -59,10 +69,10 @@ abstract class CRUD extends Controller
                 $updateObject->$setProperty($value);
             }
         }
-        // $this->getRepository()->save($updateObject);
-        $this->repository->save($updateObject);
+        $this->db->$name->save($updateObject);
         $name = $this->getName();
-        header("Location: /{$name}");
+        $this->redirect("/" . $this->getName());
+        
     }
 }
 

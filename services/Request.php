@@ -9,21 +9,9 @@ class Request
     protected $params;
     
     public function __construct() {
+        session_start();
         $this->requestString = $_SERVER['REQUEST_URI'];
         $this->parseRequest();
-        
-
-//         try {
-//             throw new \Exception('Новая');
-//         } catch (ExQuery $exception) {
-//             var_dump($exception->getMessage());
-//         } catch (ExConnect $exception) {
-//             var_dump($exception->getMessage());
-//         } catch (\Exception $exception) {
-//             var_dump($exception->getMessage());
-//         } finally {
-//             echo 'Ok';
-//         }
     }
     
     protected function parseRequest() {
@@ -43,6 +31,7 @@ class Request
         if (empty($val)){
             return $this->params['get'];
         }
+//         var_dump($val); die;
     
         if (isset($this->params['get'][$val])) {
             return $this->params['get'][$val];
@@ -50,6 +39,8 @@ class Request
         
         return null;
     }
+    
+    
     
     /**
      * @return mixed
@@ -82,25 +73,27 @@ class Request
     {
         return $this->params;
     }
+    
+//     public function getSession($key = null) {
+//         if (empty($key)){
+//             return $_SESSION;
+//         }
+        
+//         return !empty($_SESSION['key'])
+//             ? $_SESSION['key']
+//             : [];
+//     }
+    
+//     public function setSession ($key, $value) {
+//         $_SESSION['key'] = $value;
+//     }
+    
+    public function redirect($path = null) {
+        if (empty($path)) {
+            $path = $_SERVER['HTTP_REFERER'];
+        }
+        
+        header('Location: ' . $path);
+    }
 
 }
-
-
-// class Ex extends \Exception {
-//     public function get() {
-//       echo "Новая ошибка";
-//     }
-     
-// }
-// class ExConnect extends \Exception {
-//     public function get() {
-//       echo "ошибка ExConnect";
-//     }
-     
-// }
-// class ExQuery extends \Exception {
-//     public function get() {
-//       echo "ошибка ExQuery";
-//     }
-     
-// }
