@@ -1,16 +1,34 @@
 <?php
 namespace App\controllers;
 
-abstract class Controller extends CRUD
+use App\services\renders\IRenderService;
+use App\services\Request;
+
+
+abstract class Controller
 {
-    
-    private $defaultAction = 'all';
-    private $action;
-    abstract public function getClass();
+
+    protected $defaultAction = 'all';
+    protected $action;
+    protected $renderer;
+    protected $request;
+
+    // abstract public function getClass();
+    // abstract public function getRepository();
     abstract public function getView();
-    
-    
-    public function run($actionName) {
+
+    abstract public function getName();
+
+    abstract public function getTitle();
+
+    public function __construct(IRenderService $renderer, Request $request)
+    {
+        $this->renderer = $renderer;
+        $this->request = $request;
+    }
+
+    public function run($actionName)
+    {
         $this->action = $actionName ?: $this->defaultAction;
         $method = $this->action . 'Action';
         if (method_exists($this, $method)) {
@@ -19,34 +37,18 @@ abstract class Controller extends CRUD
             echo '404 a';
         }
     }
-    
-    public function allAction() {
-        
-        $params = [
-            $this->getView() => $this->getClass()->getAll(),
-            'title' => 'Моя страница',
-            'value' => 'Данные из базы'
-        ];
-        
-        echo $this->render($this->getView(), $params);
-        //         echo $a;
+
+    public function render($template, $params = [])
+    {   
+        return $this->renderer->render($template, $params);
     }
     
-    public function oneAction() {
-        var_dump($_POST);
-        var_dump($this->getClass()->getOne($_GET['id']));
+    public function get($value = '') {
+        return $this->request->get($value);
     }
     
-    public function render($template, $params = []){
-        $content = $this->renderTmpl($template, $params);
-        return $this->renderTmpl('layouts/main', ['content' => $content]);
-    }
-    
-    public function renderTmpl($template, $params = []) {
-        ob_start();
-        extract($params);
-        include dirname(__DIR__) . '/views/' . $template . '.php';
-        return ob_get_clean();
+    public function getId() {
+        return (int) $this->request->get('id');
     }
 }
 

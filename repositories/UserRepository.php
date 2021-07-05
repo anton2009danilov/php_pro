@@ -1,19 +1,21 @@
 <?php
-namespace App\models;
+namespace App\repositories;
+
+
+use App\entities\User;
+use App\repositories\Repository;
 
 /**
- * Class User
- *@package App\models
+ * Class UserRepository
+ *@package namespace App\repositories;
+ 
  *
- *@method self getOne()
- *@method self[] getAll()
+ *@method self getOne($id)
+ *@method User[] getAll()
+ *
  */
-class User extends Model
+class UserRepository extends Repository
 {
-    private $id;
-    private $fio;
-    private $login;
-    private $password;
     
     public $params = [
         'id',
@@ -29,7 +31,7 @@ class User extends Model
     {
         return $this->id;
     }
-
+    
     /**
      * @return mixed
      */
@@ -37,7 +39,7 @@ class User extends Model
     {
         return $this->fio;
     }
-
+    
     /**
      * @return mixed
      */
@@ -45,7 +47,7 @@ class User extends Model
     {
         return $this->login;
     }
-
+    
     /**
      * @return mixed
      */
@@ -53,7 +55,7 @@ class User extends Model
     {
         return $this->password;
     }
-
+    
     /**
      * @param number $id
      */
@@ -61,7 +63,7 @@ class User extends Model
     {
         $this->id = $id;
     }
-
+    
     /**
      * @param mixed $fio
      */
@@ -69,7 +71,7 @@ class User extends Model
     {
         $this->fio = $fio;
     }
-
+    
     /**
      * @param mixed $login
      */
@@ -77,7 +79,7 @@ class User extends Model
     {
         $this->login = $login;
     }
-
+    
     /**
      * @param mixed $password
      */
@@ -85,10 +87,17 @@ class User extends Model
     {
         $this->password = $password;
     }
-
+    
+    
+    
+    
     public function getTableName():string
     {
         return 'users';
+    }
+    
+    public function getEntityClass(): string {
+        return User::class;
     }
     
 }

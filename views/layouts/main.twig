@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+	<ul>
+		<li><a href="/">Пользователи</a></li>
+		<li><a href="/good">Товары</a></li>
+		<li><a href="/cart">Корзина</a></li>
+	</ul>
+	{% block content %}
+	{% endblock %}
+</body>
+</html>

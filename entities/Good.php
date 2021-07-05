@@ -1,14 +1,12 @@
 <?php
-namespace App\models;
+namespace App\entities;
 
 /**
  * Class Good
- *@package App\models
+ *@package App\entities
  *
- *@method self getOne()
- *@method self[] getAll()
  */
-class Good extends Model
+class Good extends Entity
 {
     private $id;
     private $file_name;

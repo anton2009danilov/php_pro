@@ -1,14 +1,10 @@
 <?php
-namespace App\models;
+namespace App\repositories;
 
-/**
- * Class Good
- *@package App\models
- *
- *@method self getOne()
- *@method self[] getAll()
- */
-class Good extends Model
+use App\entities\Good;
+use App\repositories\Repository;
+
+class GoodRepository extends Repository
 {
     private $id;
     private $file_name;
@@ -28,6 +24,17 @@ class Good extends Model
         'price'
     ];
     
+    public function getEntityClass(): string {
+        return Good::class;
+    }
+    
+    public function getTableName(): string
+    {
+        return 'goods';
+    }
+    
+    
+    
     /**
      * @return number
      */
@@ -35,7 +42,7 @@ class Good extends Model
     {
         return $this->id;
     }
-
+    
     /**
      * @return mixed
      */
@@ -43,7 +50,7 @@ class Good extends Model
     {
         return $this->file_name;
     }
-
+    
     /**
      * @return mixed
      */
@@ -51,7 +58,7 @@ class Good extends Model
     {
         return $this->views;
     }
-
+    
     /**
      * @return mixed
      */
@@ -59,7 +66,7 @@ class Good extends Model
     {
         return $this->likes;
     }
-
+    
     /**
      * @return mixed
      */
@@ -67,7 +74,7 @@ class Good extends Model
     {
         return $this->description;
     }
-
+    
     /**
      * @return mixed
      */
@@ -75,7 +82,7 @@ class Good extends Model
     {
         return $this->item_name;
     }
-
+    
     /**
      * @return mixed
      */
@@ -83,7 +90,7 @@ class Good extends Model
     {
         return $this->price;
     }
-
+    
     /**
      * @param number $id
      */
@@ -91,7 +98,7 @@ class Good extends Model
     {
         $this->id = $id;
     }
-
+    
     /**
      * @param mixed $file_name
      */
@@ -99,7 +106,7 @@ class Good extends Model
     {
         $this->file_name = $file_name;
     }
-
+    
     /**
      * @param mixed $views
      */
@@ -107,7 +114,7 @@ class Good extends Model
     {
         $this->views = $views;
     }
-
+    
     /**
      * @param mixed $likes
      */
@@ -115,7 +122,7 @@ class Good extends Model
     {
         $this->likes = $likes;
     }
-
+    
     /**
      * @param mixed $description
      */
@@ -123,7 +130,7 @@ class Good extends Model
     {
         $this->description = $description;
     }
-
+    
     /**
      * @param mixed $item_name
      */
@@ -131,18 +138,13 @@ class Good extends Model
     {
         $this->item_name = $item_name;
     }
-
+    
     /**
      * @param mixed $price
      */
     public function setPrice($price)
     {
         $this->price = $price;
-    }
-
-    public function getTableName(): string
-    {
-        return 'goods';
     }
 
 }
